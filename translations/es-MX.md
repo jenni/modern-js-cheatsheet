@@ -1,11 +1,15 @@
-# Modern JavaScript Cheatsheet
-## en Español
+# Modern JavaScript Cheatsheet en Español
+Texto original:
+[Manuel BEAUDRU](https://github.com/mbeaudru)
+
+Traductores: 
+[Sergio Gomez](https://github.com/giocodes)
 
 ![Cheatsheet de JavaScript moderno](https://i.imgur.com/aexPxMb.png)
-<small> Créditos de la imagen: 
+<small> Imagen por: 
 [Ahmad Awais ⚡️](https://github.com/ahmadawais) </small>
-<small> Traducción: 
-[Gio 🇪🇸 🇲🇽](https://github.com/giocodes) </small>
+<small>  </small>
+
 
 ## Introducción
 
