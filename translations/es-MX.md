@@ -106,7 +106,7 @@ Cuando batalles para entender una concepto, los siguientes recursos pueden ser d
 
 ## Conceptos Básicos
 
-### Declaración de variables: var, const, let
+### Declaración de variables: var, const, let 
 
 En JavaScript, hay tres palabras clave disponibles para declarar una variable, y cada una tiene sus diferencias. Estos son ```var```,``` let``` y ```const```.
 
