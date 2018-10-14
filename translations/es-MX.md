@@ -299,31 +299,31 @@ person = ["Nick"] // genera un error, ya que no se permite la reasignación con 
 - [Cómo se deja const y const scoped en JavaScript - WesBos] (http://wesbos.com/javascript-scoping/)
 - [Temporal Dead Zone (TDZ) Demystified] (http://jsrocks.org/2015/01/temporal-dead-zone-tdz-demystified)
 
-### <a name="arrow_func_concept"></a> Arrow function
+### <a name="arrow_func_concept"></a> Functión flecha (Arrow function)
 
-The ES6 JavaScript update has introduced *arrow functions*, which is another way to declare and use functions. Here are the benefits they bring:
+JavaScript ES6 introduce otra manera de declarar y usar funciones, las *funciones flecha* (arrow functions). Estas son sus ventajas:
 
-- More concise
-- *this* is picked up from surroundings
-- implicit return
+- Más concisas
+- *this* hace referencia al entorno
+- Retorno implícito
 
-#### Sample code
+#### Código de ejemplo
 
-- Concision and implicit return
+- Concisión y retorno implícito
 
 ```js
-function double(x) { return x * 2; } // Traditional way
+function double(x) { return x * 2; } // La manera tradicional
 console.log(double(2)) // 4
 ```
 
 ```js
-const double = x => x * 2; // Same function written as an arrow function with implicit return
+const double = x => x * 2; // La misma función escrita en función flecha y retorno implícito
 console.log(double(2)) // 4
 ```
 
-- *this* reference
+- El contexto de *this*
 
-In an arrow function, *this* is equal to the *this* value of the enclosing execution context. Basically, with arrow functions, you don't have to do the "that = this" trick before calling a function inside a function anymore.
+En las funciones flecha, *this* es igual al valor *this* del contexto de ejecución. Basicamente, con las funciones flecha, ya no es necesario hacer el truco de "that = this" antes de llamar a una función dentro de otra función.
 
 ```js
 function myFunc() {
@@ -335,114 +335,117 @@ function myFunc() {
 }
 ```
 
-#### Detailed explanation
+#### Explicación detallada
 
-##### Concision
+##### Concisión
 
 Arrow functions are more concise than traditional functions in many ways. Let's review all the possible cases:
 
-- Implicit VS Explicit return
+Las funciones flecha son, en muchos casos, más concisas que las funciones tradicionales.
+
+- Retorno implícito vs explícito
 
 An **explicit return** is a function where the *return* keyword is used in its body.
 
+Se le llama **retorno explícito** a cuando la palabra *retorno* se usa de manera explícita en el cuerpo de la función.
+
 ```js
   function double(x) {
-    return x * 2; // this function explicitly returns x * 2, *return* keyword is used
+    return x * 2; // esta función retorna explícitamente x * 2, se usa la palabra *return*
   }
 ```
 
-In the traditional way of writing functions, the return was always explicit. But with arrow functions, you can do *implicit return* which means that you don't need to use the keyword *return* to return a value.
+En la manera tradicional de escribir funciones, el retorno de los valores fue siempre explícito. Con las funciones flecha se pueden hacer retornos implícitos, lo que signfica que no tienes que usar la palabra **return** para retornar un valor.
 
-To do an implicit return, the code must be written in a one-line sentence.
+Para hacer un retorno implícito, el código tiene que estar escrito en una sola línea.
 
 ```js
   const double = (x) => {
-    return x * 2; // Explicit return here
+    return x * 2; // Retorno explícito
   }
 ```
 
-Since there only is a return value here, we can do an implicit return.
+Como solo hay un valor retornado, en la misma función podemos hacer un retorno implícito.
 
 ```js
   const double = (x) => x * 2;
 ```
 
-To do so, we only need to **remove the brackets** and the **return** keyword. That's why it's called an *implicit* return, the *return* keyword is not there, but this function will indeed return ```x * 2```.
+Para hacerlo, solo necesitamos **deshacernos de las llaves** y de la palabra **return**. Ahora, el retorno es implícito: la función seguirá retornando el resultado de ```x * 2```.
 
-> **Note:** If your function does not return a value (with *side effects*), it doesn't do an explicit nor an implicit return.
+> **Nota:** Si tu función no retorna ningún valor (con *efectos secundarios*) no se dará el retorno explícito ni implícito.
 
-Besides, if you want to implicitly return an *object* you **must have parenthesis around it** since it will conflict with the block braces:
+Si quieres retornar de manera implícita un *objecto*, deberás añadir paréntesis alrededor del mismo o el interpretador de JavaScript entenderá que las llaves hacen referencia al cuerpo de una función, y no al de un objeto.
 
 ```js
 const getPerson = () => ({ name: "Nick", age: 24 })
-console.log(getPerson()) // { name: "Nick", age: 24 } -- object implicitly returned by arrow function
+console.log(getPerson()) // { name: "Nick", age: 24 } -- Objeto retornado implícitamente por la función flecha
 ```
 
-- Only one argument
+- Solo un argumento
 
-If your function only takes one parameter, you can omit the parenthesis around it. If we take back the above *double* code:
+Se pueden omitir los paréntesis alrededor del parámetro si la función solo recibe un parámetro. El anterior código de ejemplo se puede escribir de esta manera:
 
 ```js
-  const double = (x) => x * 2; // this arrow function only takes one parameter
+  const double = (x) => x * 2; // esta función flecha solo recibe un parámetro
 ```
 
-Parenthesis around the parameter can be avoided:
+Los paréntesis alrededor del parámetro pueden ser omitidos:
 
 ```js
-  const double = x => x * 2; // this arrow function only takes one parameter
+  const double = x => x * 2; // esta función flecha solo recibe un parámetro
 ```
 
-- No arguments
+- Sin argumentos
 
-When there is no argument provided to an arrow function, you need to provide parentheses, or it won't be valid syntax.
+Cuando las funciones flecha no reciben ningún argumento, es necesario aplicar los paréntesis, o el sintaxis no será válido.
 
 ```js
-  () => { // parenthesis are provided, everything is fine
+  () => { // se declaran paréntesis, todo bien
     const x = 2;
     return x;
   }
 ```
 
 ```js
-  => { // No parenthesis, this won't work!
+  => { // Sin paréntesis, no funcionará!
     const x = 2;
     return x;
   }
 ```
 
-##### *this* reference
+##### La referencia *this* 
 
-To understand this subtlety introduced with arrow functions, you must know how [this](#this_def) behaves in JavaScript.
+Para entender la sutileza introducida con las funciones de flecha, deberás entender primero cómo [this](#this_def) funciona en JavaScript.
 
-In an arrow function, *this* is equal to the *this* value of the enclosing execution context. What it means is that an arrow function doesn't create a new *this*, it grabs it from its surrounding instead.
+En una función flecha, *this* equivale al *this* del contexto de ejecución. Signfica que las funciones flecha no crean un nuevo contexto para *this*, si no que extraen de su entorno.
 
-Without arrow function, if you wanted to access a variable from *this* in a function inside a function, you had to use the *that = this* or *self = this* trick.
+Antes de las funciones flecha, si quisieras acceder a una variable desde *this* en una función dentro de una función, tendrías que usar el truco de: *that = this* o *self = this*.
 
-For instance, using setTimeout function inside myFunc:
+Por ejemplo, usando la función setTimeout dentro de myFunc:
 
 ```js
 function myFunc() {
   this.myVar = 0;
-  var that = this; // that = this trick
+  var that = this; //el truco de: that = this
   setTimeout(
-    function() { // A new *this* is created in this function scope
+    function() { // Un nuevo *this* se crea en el contexto de la función
       that.myVar++;
       console.log(that.myVar) // 1
 
-      console.log(this.myVar) // undefined -- see function declaration above
+      console.log(this.myVar) // undefined -- "this" se refiere a la función encapsulada en setTimeout
     },
     0
   );
 }
 ```
-
-But with arrow function, *this* is taken from its surrounding:
+Con las funciones flecha, *this* hace referencia a todo el entorno:
 
 ```js
 function myFunc() {
   this.myVar = 0;
   setTimeout(
-    () => { // this taken from surrounding, meaning myFunc here
+    () => { // se puede acceder al "this" declarado en myFunc()
       this.myVar++;
       console.log(this.myVar) // 1
     },
@@ -451,11 +454,11 @@ function myFunc() {
 }
 ```
 
-#### Useful resources
+#### Recursos útiles
 
-- [Arrow functions introduction - WesBos](http://wesbos.com/arrow-functions/)
-- [JavaScript arrow function - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
-- [Arrow function and lexical *this*](https://hackernoon.com/javascript-es6-arrow-functions-and-lexical-this-f2a3e2a5e8c4)
+- [Curso sobre ES6 con Wesbos - WesBos](https://github.com/Villanuevand/es6-with-wesbos)
+- [Funciones flecha en JavaScript - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Funciones/Arrow_functions)
+- [Aprendiendo ES 6: Funciones Flecha (Arrow)](https://frontendlabs.io/3410--funciones-flecha-arrow-es6-javascript-tutorial-ecmascript-6)
 
 ### Function default parameter value
 
